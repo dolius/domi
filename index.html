@@ -1,0 +1,85 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOMI Micro JS Library</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/axist@latest/dist/axist.min.css" />
+  <script src="domy.js"></script>
+  
+    <style>
+     
+    /* styles.css */
+.largefont {
+  font-size: 30px;
+}
+
+    a {cursor: pointer; font-weight:700; margin: 0px 10px; font-size: 20px}
+  </style>
+  
+  
+</head>
+  
+
+<body>
+  <h1>domi.js - ultra minimal micro library for essential UX effects</h1>
+  <div style="color:red; border: 2px solid green; padding:20px" id="myDiv">In the realm of code, where simplicity shines,
+Lies a wondrous world, where elegance aligns,
+A realm called DOM, a canvas for our art,
+Where developers wield their creative heart.</div>
+  <a data-do="hide" data-target="myDiv">Hide</a>
+  <a data-do="show" data-target="myDiv">Show</a>
+  <a data-do="fadein" data-target="myDiv">Fade In</a>
+  <a data-do="fadeout" data-target="myDiv">Fade Out</a>
+  <a data-do="textswapon" data-target="myDiv" data-textinput="This is the text swapped">Swap Text On</a>
+  <a data-do="textswapoff" data-target="myDiv">Swap Text Off</a>
+  <a data-do="toggleclass" data-target="myDiv" data-class="largefont">Toggle class</a>
+  
+  <script>
+    // domy.js by David Echeverri
+(function () {
+  const elements = document.querySelectorAll('[data-do]');
+
+  elements.forEach((element) => {
+    element.addEventListener('click', function () {
+      const action = this.dataset.do;
+      const targetId = this.dataset.target;
+      const targetElement = document.getElementById(targetId);
+
+      if (!targetElement) return;
+
+      switch (action) {
+        case 'hide':
+          targetElement.style.display = 'none';
+          break;
+        case 'show':
+          targetElement.style.display = 'block';
+          break;
+        case 'fadein':
+          targetElement.style.transition = 'opacity 0.5s';
+          targetElement.style.opacity = 1;
+          break;
+        case 'fadeout':
+          targetElement.style.transition = 'opacity 0.5s';
+          targetElement.style.opacity = 0;
+          break;
+        case 'textswapon':
+          const textInput = this.dataset.textinput;
+          targetElement.textContent = textInput;
+          break;
+        case 'textswapoff':
+          targetElement.textContent = 'Initial text';
+          break;
+        case 'toggleclass':
+          const toggleClass = this.dataset.class;
+          targetElement.classList.toggle(toggleClass);
+          break;
+        default:
+          break;
+      }
+    });
+  });
+})();
+  </script>
+</body>
+</html>
